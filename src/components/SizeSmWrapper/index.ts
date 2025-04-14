@@ -1,0 +1,1 @@
+export { SizeSmWrapper } from "./SizeSmWrapper";

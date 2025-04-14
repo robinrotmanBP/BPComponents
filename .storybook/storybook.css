@@ -1,0 +1,40 @@
+body {
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  color: #111;
+}
+
+h3 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+  text-transform: capitalize;
+}
+
+button,
+div[class*="ButtonsButton"] {
+  transition: all 0.2s ease;
+}
+
+.sb-button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sb-button-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+}
+.sb-button-item span {
+  font-size: 11px;
+  color: #555;
+  margin-top: 0.25rem;
+  text-align: center;
+}

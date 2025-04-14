@@ -1,0 +1,58 @@
+
+
+.buttons-button-close {
+  align-items: center;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+  position: relative;
+}
+
+.buttons-button-close .x-close {
+  height: 24px !important;
+  position: relative !important;
+  width: 24px !important;
+}
+
+.buttons-button-close .instance-node {
+  height: 20px !important;
+  position: relative !important;
+  width: 20px !important;
+}
+
+.buttons-button-close.md {
+  height: 40px;
+  width: 40px;
+}
+
+.buttons-button-close.sm {
+  height: 36px;
+  width: 36px;
+}
+
+.buttons-button-close.lg {
+  height: 44px;
+  width: 44px;
+}
+
+.buttons-button-close.focused {
+  box-shadow: var(--focus-rings-focus-ring);
+}
+
+.buttons-button-close.hover.dark-background-false {
+  background-color: #d8edff;
+}
+
+.buttons-button-close.dark-background-true.focused {
+  background-color: #ffffff33;
+}
+
+.buttons-button-close.focused.dark-background-false {
+  background-color: #f2f8ff;
+}
+
+.buttons-button-close.dark-background-true.hover {
+  background-color: #ffffff33;
+}
