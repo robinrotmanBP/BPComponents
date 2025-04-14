@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { useReducer } from "react";
+import React, { useReducer } from "react";
 import { XClose3 } from "../../icons/XClose3";
 import { XClose5 } from "../../icons/XClose5";
 import { XClose12 } from "../../icons/XClose12";
@@ -8,36 +7,39 @@ import { XClose14 } from "../../icons/XClose14";
 import "./storybook.css";
 
 interface Props {
-  size: "md" | "lg" | "sm";
+  size: "sm" | "md" | "lg";
   darkBackground: boolean;
   stateProp: "focused" | "hover" | "default";
-  className: any;
+  className?: string;
 }
 
 export const ButtonsButtonClose = ({
   size,
   darkBackground,
   stateProp,
-  className,
+  className = "",
 }: Props): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, {
-    size: size || "sm",
-
-    darkBackground: darkBackground,
-
-    state: stateProp || "default",
+    size,
+    darkBackground,
+    state: stateProp,
   });
+
+const compoundClass = [
+  `buttons-button-close`,
+  state.size,
+  state.state,
+  `dark-background-${state.darkBackground}`,
+  className,
+].join(" ");
 
   return (
     <div
-      className={`buttons-button-close ${state.size} ${state.state} dark-background-${state.darkBackground} ${className}`}
-      onMouseLeave={() => {
-        dispatch("mouse_leave");
-      }}
-      onMouseEnter={() => {
-        dispatch("mouse_enter");
-      }}
+      className={compoundClass}
+      onMouseEnter={() => dispatch("mouse_enter")}
+      onMouseLeave={() => dispatch("mouse_leave")}
     >
+      {/* LG Icon */}
       {state.size === "lg" &&
         (!state.darkBackground || state.state === "hover") && (
           <XClose3
@@ -46,19 +48,16 @@ export const ButtonsButtonClose = ({
               !state.darkBackground && state.state === "hover"
                 ? "#999999"
                 : state.darkBackground
-                  ? "white"
-                  : "#B3B3B3"
+                ? "white"
+                : "#B3B3B3"
             }
           />
         )}
 
-      {((!state.darkBackground && state.size === "md") ||
-        (!state.darkBackground && state.size === "sm") ||
+      {/* SM / MD Icon */}
+      {((!state.darkBackground && ["md", "sm"].includes(state.size)) ||
         (state.darkBackground &&
-          state.size === "md" &&
-          state.state === "hover") ||
-        (state.darkBackground &&
-          state.size === "sm" &&
+          ["md", "sm"].includes(state.size) &&
           state.state === "hover")) && (
         <XClose5
           className="instance-node"
@@ -66,30 +65,25 @@ export const ButtonsButtonClose = ({
             !state.darkBackground && state.state === "hover"
               ? "#999999"
               : state.darkBackground
-                ? "white"
-                : "#B3B3B3"
+              ? "white"
+              : "#B3B3B3"
           }
         />
       )}
 
+      {/* Dark LG (default/focused) */}
       {state.darkBackground &&
         state.size === "lg" &&
         ["default", "focused"].includes(state.state) && (
           <XClose12 className="x-close" />
         )}
 
-      {((state.darkBackground &&
-        state.size === "md" &&
-        state.state === "default") ||
-        (state.darkBackground &&
-          state.size === "md" &&
-          state.state === "focused") ||
-        (state.darkBackground &&
-          state.size === "sm" &&
-          state.state === "default") ||
-        (state.darkBackground &&
-          state.size === "sm" &&
-          state.state === "focused")) && <XClose14 className="instance-node" />}
+      {/* Dark SM/MD (default/focused) */}
+      {state.darkBackground &&
+        ["md", "sm"].includes(state.size) &&
+        ["default", "focused"].includes(state.state) && (
+          <XClose14 className="instance-node" />
+        )}
     </div>
   );
 };
@@ -97,19 +91,12 @@ export const ButtonsButtonClose = ({
 function reducer(state: any, action: any) {
   switch (action) {
     case "mouse_enter":
-      return {
-        ...state,
-        state: "hover",
-      };
-
+      return { ...state, state: "hover" };
     case "mouse_leave":
-      return {
-        ...state,
-        state: "default",
-      };
+      return { ...state, state: "default" };
+    default:
+      return state;
   }
-
-  return state;
 }
 
 ButtonsButtonClose.propTypes = {
